@@ -40,7 +40,7 @@ $serv->on('Task',function($serv,$taskId,$fromId,$data){
     // 也可以通过return的方式调用finsih
     return "task end." . PHP_EOL;
 
-    # 只要出现return 或者
+    # 只要出现return 或者 finish 就代表直接结束了
     
 });
 
