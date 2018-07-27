@@ -41,7 +41,6 @@ $serv->on('Task',function($serv,$taskId,$fromId,$data){
     return "task end." . PHP_EOL;
 
     # 只要出现return 或者 finish 就代表直接结束了
-    
 });
 
 
