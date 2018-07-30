@@ -13,6 +13,7 @@ class ServerPack
 			'package_body_offset'=>4, //第几个字节开始计算长度
 			'package_max_length'=>81920,
 		]);
+
 		$this->_serv->on('start',[$this,'onStart']);
 		$this->_serv->on('Receive',[$this,'onReceive']);
 	}
@@ -29,9 +30,7 @@ class ServerPack
 		$body=substr($data,-$len);
 		echo "server data is {$body}\n";
 	}
-
-
-
+	
 	public function start()
 	{
 		$this->_serv->start();
