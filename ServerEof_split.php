@@ -14,7 +14,7 @@ class ServerEofCheck
             'worker_num' => 1,
             'open_eof_check' => true, //打开EOF检测
             'package_eof' => "\r\n", //设置EOF
-            'open_eol_split'=>true,
+            'open_eof_split'=>true,
         ]);
         $this->_serv->on('Connect', array($this, 'onConnect'));
         $this->_serv->on('Close', array($this, 'onClose'));
