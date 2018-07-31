@@ -1,5 +1,5 @@
 <?php 
-class TaskClient()
+class TaskClient
 {
 	private $client;
 	const EVENT_TYPE_SEND_MAIL='send-mail';
@@ -7,7 +7,7 @@ class TaskClient()
 	public function __construct()
 	{
 		$this->client=new Swoole\Client(SWOOLE_SOCK_TCP);
-		if(!this->client->connect('127.0.0.1',9501))
+		if(!$this->client->connect('127.0.0.1',9501))
 		{
 			$msg='swoole client connect failed';
 			throw new \Exception("Error:{$msg}");

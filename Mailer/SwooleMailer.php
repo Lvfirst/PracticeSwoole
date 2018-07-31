@@ -13,7 +13,7 @@ class Mailer
 		$this->transport=(new Swift_SmtpTransport('smtp.qq.com','465'))
 			->setEncryption('ssl')
 			->setUsername('1655585137@qq.com')
-			->setPassword('xxxxxx');
+			->setPassword('kbbbqznatpsyebgd');
 
 		$this->mailer=new Swift_Mailer($this->transport);
 

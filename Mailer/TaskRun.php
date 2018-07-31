@@ -23,11 +23,11 @@ class TaskRun
 					# code...
 					break;
 			}
-			
+
 			return $res;
 			
 		} catch (\Exception $e) {
-			throw new \Exception("[{$e->getCode()}] Task Exception: {$e->getMessage()}")
+			throw new \Exception("[{$e->getCode()}] Task Exception: {$e->getMessage()}");
 		}
 	}
 

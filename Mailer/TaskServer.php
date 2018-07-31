@@ -24,7 +24,7 @@ class TaskServer
 		);
 		// on Connect| Receive| WorkerStart |Task| Finish|close
 		$this->_serv->on('Connect',[$this,'OnConnect']); 
-		$this->_serv->on('Recveive',[$this,'OnReceive']);
+		$this->_serv->on('Receive',[$this,'OnReceive']);
 		$this->_serv->on('WorkerStart',[$this,'OnWorkerStart']);
 		$this->_serv->on('Task',[$this,'OnTask']);
 		$this->_serv->on('Finish',[$this,'OnFinish']);
@@ -65,7 +65,7 @@ class TaskServer
 
 	public function OnClose($serv,$fd,$fromId)
 	{
-		
+
 	}
 	/**
 	 * [upack 要经过json_decode 只能是数组]
@@ -76,7 +76,7 @@ class TaskServer
 	 *
 	 * @return   [type]
 	 */
-	public function upack($data)
+	public function unpack($data)
 	{
 		$data=str_replace("\r\n",'',$data);
 		if(!$data)
@@ -84,7 +84,7 @@ class TaskServer
 			return false;
 		}
 		$data=json_decode($data,true);
-		if(!$data || !is_array($data,true))
+		if(!$data || !is_array($data))
 		{
 			return false;
 		}
