@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SocketClient</title>
+</head>
+
+<body>
+    <div>
+        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+        <button onclick="send();">发送</button>
+    </div>
+    <div class="list" style="border: solid 1px #ccc; margin-top: 10px;">
+        <ul id="ul">
+        </ul>
+    </div>
+    <script>
+    var ws = new WebSocket('ws://192.168.137.136:9501');
+    ws.onopen = function(event) {
+        ws.send('lvzhiwei');
+    };
+    // 
+    ws.onmessage = function(event) {
+
+    	var data=event.data;
+    	var ul=document.getElementById('ul');
+    	var li=document.createElement('li');
+    	li.innerHTML=data;
+    	ul.appendChild(li);
+        // console.log('client received a msg:', event.data);
+    };
+
+    ws.onclose = function(event) {
+        console.log('Client has closed.', event);
+    }
+
+    function send()
+    {
+    	var obj=document.getElementById('content');
+    	var content=obj.value;
+    	ws.send(content);
+    }
+    </script>
+</body>
+
+</html>
