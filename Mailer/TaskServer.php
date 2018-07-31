@@ -39,6 +39,7 @@ class TaskServer
 	public function OnReceive($serv,$fd,$fromId,$data)
 	{
 		$data=$this->unpack($data);
+		// var_dump($data);
 		$this->_run->receive($serv,$fd,$fromId,$data);
 		// 投递任务
 		if(!empty($data['event']))
