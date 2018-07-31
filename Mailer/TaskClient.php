@@ -27,7 +27,7 @@ class TaskClient
 		{
 			return false;
 		}
-
+		
 		return json_encode($data)."\r\n";
 	}
 }
