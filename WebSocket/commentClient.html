@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connect</title>
+</head>
+
+<body>
+    <script>
+    var ws; //webSocket
+    var lockReconnect = false; //避免重复连接
+    var wsUrl = 'ws://192.168.137.136:9501';
+
+    //创建socket连接
+    function createWebSocket(url) {
+        try {
+            ws = new WebSocket(url);
+            initEventHandle();
+        } catch (e) {
+            // 如果没有响应继续连接
+            reconnect(url);
+        }
+    }
+
+    function initEventHandle() {
+        ws.onopen = function() {
+            console.log('刚刚开始连接');
+            // 心跳检测重置
+            heartCheck.reset().start();
+        }
+        ws.onmessage = function(event) {
+            console.log(event.data);
+            // 如果有消息，心跳检测重置
+            heartCheck.reset().start();
+        }
+
+        ws.onclose = function() {
+            console.log('连接失败1');
+            reconnect(wsUrl);
+        }
+
+        ws.onerror = function() {
+            console.log('连接错误1');
+            reconnect(wsUrl);
+        }
+
+    }
+    /**
+     * [reconnect 自动连接]
+     *
+     * @DateTime 2018-08-01
+     *
+     * @param    {[type]} url
+     *
+     * @return   {[type]}
+     */
+    function reconnect(url) {
+        if (lockReconnect) return;
+        lockReconnect = true;
+
+        setTimeout(function() {
+            createWebSocket(url);
+            lockReconnect = false;
+        }, 2000);
+    }
+
+    //心跳检测
+    var heartCheck = {
+        timeout: 60000, //60s
+        timeoutObj: null,
+        serverTimeoutObj: null,
+        reset: function() {
+            clearTimeout(this.timeoutObj);
+            clearTimeout(this.serverTimeoutObj);
+            return this;
+        },
+        start: function() {
+            var self = this;
+            this.tiemoutObj = setTimeout(function() {
+                //发送心跳消息测试是否返回i消息
+                ws.send('lvzhiwei');
+                // 如果60s还没有响则关闭连击
+                self.serverTimeoutObj = setTimeout(
+                    function() {
+                        ws.close();
+                    }, self.timeout);
+            }, this.timeout);
+        },
+    }
+
+    createWebSocket(wsUrl);
+    </script>
+</body>
+
+</html>
